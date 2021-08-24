@@ -1,0 +1,12 @@
+!.*.js
+
+!*.config.js
+
+build
+
+node_modules
+
+.next
+
+
+storybook-static
