@@ -1,0 +1,4 @@
+build
+.storybook
+.next
+storybook-static
