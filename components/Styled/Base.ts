@@ -74,6 +74,9 @@ interface IBaseProps {
   displayMd?: string
   position?: string
   bgImage?: string
+  bgColor?: string
+  rounded?: string
+  shadow?: string
 }
 
 const Base = styled.div<IBaseProps>`
@@ -95,8 +98,15 @@ const Base = styled.div<IBaseProps>`
   height: ${(props) => props.height && perimiters[props.height]};
 
   background: url(${(props) => props.bgImage && props.bgImage}) no-repeat;
+  background-color: ${(props) =>
+    props.bgColor && props.theme.colors[props.bgColor]};
   background-size: cover;
   background-position: center;
+
+  border-radius: 2px;
+
+  box-shadow: ${(props) =>
+    props.shadow && props.theme.boxShadows[props.shadow]};
 
   @media (min-width: ${(props) => props.theme.viewports.tablet}) {
     margin-top: ${(props) => props.mtMd && spacing[props.mtMd]};
