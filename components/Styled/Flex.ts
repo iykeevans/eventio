@@ -3,35 +3,46 @@ import Base from './Base'
 
 interface FlexIProps {
   direction?: string
-  itemsCenter?: boolean
-  itemsEnd?: boolean
-  justifyCenter?: boolean
-  justifyEnd?: boolean
-  justifyBetween?: boolean
-  justifyStartMd?: boolean
+  directionMd?: string
+
+  alignItems?: keyof typeof flexDisplays
+  alignItemsMd?: keyof typeof flexDisplays
+
+  justifyContent?: keyof typeof flexDisplays
+  justifyContentMd?: keyof typeof flexDisplays
 }
 
-const alignItemsHandler = (props: FlexIProps): string => {
-  if (props.itemsCenter) return 'center'
-  if (props.itemsEnd) return 'flex-end'
-  return ''
+interface IFlexDisplays {
+  center: string
+  between: string
+  around: string
+  even: string
+  start: string
+  end: string
 }
 
-const justifyContentHandler = (props: FlexIProps): string => {
-  if (props.justifyCenter) return 'center'
-  if (props.justifyEnd) return 'flex-end'
-  if (props.justifyBetween) return 'space-between'
-  return ''
+const flexDisplays: IFlexDisplays = {
+  center: 'center',
+  between: 'space-between',
+  around: 'space-around',
+  even: 'space-even',
+  start: 'flex-start',
+  end: 'flex-end',
 }
 
 const Flex = styled(Base)<FlexIProps>`
   display: flex;
-  flex-direction: ${(props) => (props.direction ? props.direction : 'flex')};
-  align-items: ${(props) => alignItemsHandler(props)};
-  justify-content: ${(props) => justifyContentHandler(props)};
+  flex-direction: ${(props) => props.direction && props.direction};
+  align-items: ${(props) => props.alignItems && flexDisplays[props.alignItems]};
+  justify-content: ${(props) =>
+    props.justifyContent && flexDisplays[props.justifyContent]};
 
   @media (min-width: ${(props) => props.theme.viewports.tablet}) {
-    justify-content: ${(props) => props.justifyStartMd && 'start'};
+    flex-direction: ${(props) => props.directionMd && props.directionMd};
+    justify-content: ${(props) =>
+      props.justifyContentMd && flexDisplays[props.justifyContentMd]};
+    align-items: ${(props) =>
+      props.alignItemsMd && flexDisplays[props.alignItemsMd]};
   }
 `
 
