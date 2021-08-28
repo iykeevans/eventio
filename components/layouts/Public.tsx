@@ -12,7 +12,7 @@ function Public(page: ReactNode) {
     <>
       <Header>
         <Flex
-          justifyBetween
+          justifyContent="between"
           ml="auto"
           mr="auto"
           width="10/12"
@@ -54,7 +54,13 @@ function Public(page: ReactNode) {
           position="fixed"
           bgImage="/assets/images/bg-image.jpg"
         >
-          <Flex direction="column" justifyEnd itemsCenter height="full" pb="14">
+          <Flex
+            direction="column"
+            justifyContent="end"
+            alignItems="center"
+            height="full"
+            pb="14"
+          >
             <Text
               color="eventio.light"
               fontSize="4xl"

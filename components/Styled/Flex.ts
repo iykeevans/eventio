@@ -4,6 +4,7 @@ import Base from './Base'
 interface FlexIProps {
   direction?: string
   directionMd?: string
+  wrap?: boolean
 
   alignItems?: keyof typeof flexDisplays
   alignItemsMd?: keyof typeof flexDisplays
@@ -36,6 +37,7 @@ const Flex = styled(Base)<FlexIProps>`
   align-items: ${(props) => props.alignItems && flexDisplays[props.alignItems]};
   justify-content: ${(props) =>
     props.justifyContent && flexDisplays[props.justifyContent]};
+  flex-wrap: ${(props) => props.wrap && 'wrap'};
 
   @media (min-width: ${(props) => props.theme.viewports.tablet}) {
     flex-direction: ${(props) => props.directionMd && props.directionMd};
