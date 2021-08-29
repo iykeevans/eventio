@@ -73,7 +73,7 @@ const SignIn: Page = () => {
             mt="10"
             mtMd="14"
           >
-            <Button as="button" primary>
+            <Button as="button" variant="primary" size="lg">
               SIGN IN
             </Button>
           </Flex>
