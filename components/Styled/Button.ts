@@ -16,6 +16,7 @@ const Button = styled(Base)<IButtonProps>`
   color: white;
   border: 0;
   font-weight: 600;
+  letter-spacing: 1px;
 `
 
 export default Button

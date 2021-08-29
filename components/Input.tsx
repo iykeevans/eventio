@@ -1,18 +1,44 @@
+import { SyntheticEvent } from 'react'
 import styled from 'styled-components'
+
 import Base, { spacing } from './Styled/Base'
 
 interface IInputProps {
   label: string
   type?: string
-  mb?: keyof typeof spacing
+  mt?: keyof typeof spacing
+  hasError?: boolean
+  value?: string
+  id?: string
+  name?: string
+
+  onChange?: (event: SyntheticEvent) => void
+  onBlur?: (event: SyntheticEvent) => void
 }
 
-function Input({ label, type = 'text', ...rest }: IInputProps) {
+function Input({
+  label,
+  id,
+  name,
+  type = 'text',
+  value,
+  hasError,
+  onChange,
+  onBlur,
+  ...rest
+}: IInputProps) {
   return (
     <InputGroup {...rest}>
-      <StyledInput type={type} required />
+      <StyledInput
+        id={id}
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
       <span className="highlight"></span>
-      <InputBar className="bar"></InputBar>
+      <InputBar className="bar" hasError={hasError}></InputBar>
       <Label>{label}</Label>
     </InputGroup>
   )
@@ -24,14 +50,14 @@ const InputGroup = styled(Base)`
 
 const StyledInput = styled.input`
   background: none;
-  color: #c6c6c6;
+  color: #323c46;
   font-size: 18px;
   padding: 10px 10px 10px 0px;
   display: block;
   width: 100%;
   border: none;
   border-radius: 0;
-  border-bottom: 1px solid #c6c6c6;
+  border-bottom: 1px solid #dae1e7;
 
   &:focus {
     outline: none;
@@ -40,21 +66,25 @@ const StyledInput = styled.input`
   &:focus ~ label {
     top: -10px;
     font-size: 14px;
-    color: #2196f3;
-  }
-
-  &:valid ~ label {
-    top: -10px;
-    font-size: 14px;
-    color: #2196f3;
+    color: #d2d6da;
   }
 
   &:focus ~ .bar:before {
     width: 100%;
   }
+
+  ${(props) =>
+    props.value &&
+    `~ label {
+    top: -10px;
+    font-size: 14px;
+    color: #d2d6da;
+  }`}
+
+  ${(props) => props.type === 'password' && `letter-spacing: 3.4px;`}
 `
 
-const InputBar = styled.span`
+const InputBar = styled.span<{ hasError?: boolean }>`
   position: relative;
   display: block;
   width: 100%;
@@ -62,17 +92,20 @@ const InputBar = styled.span`
   &:before {
     content: '';
     height: 2px;
-    width: 0;
+    width: ${(props) => (props.hasError ? '100%' : '0')};
     bottom: 0px;
     position: absolute;
-    background: #2196f3;
+    background: ${(props) =>
+      props.hasError
+        ? props.theme.colors['eventio.danger']
+        : props.theme.colors['eventio.primary']};
     transition: 300ms ease all;
     left: 0%;
   }
 `
 
 const Label = styled.label`
-  color: #c6c6c6;
+  color: #c9ced3;
   font-size: 16px;
   font-weight: normal;
   position: absolute;
@@ -81,54 +114,5 @@ const Label = styled.label`
   top: 20px;
   transition: 300ms ease all;
 `
-
-// const def = styled.input`
-//   input:focus {
-//     outline: none;
-//   }
-
-//   input:focus ~ label,
-//   input:valid ~ label {
-//     top: -14px;
-//     font-size: 12px;
-//     color: #2196f3;
-//   }
-
-//   input:focus ~ .bar:before {
-//     width: 320px;
-//   }
-
-//   input[type='password'] {
-//     letter-spacing: 0.3em;
-//   }
-
-//   label {
-//     color: #c6c6c6;
-//     font-size: 16px;
-//     font-weight: normal;
-//     position: absolute;
-//     pointer-events: none;
-//     left: 5px;
-//     top: 10px;
-//     transition: 300ms ease all;
-//   }
-
-//   .bar {
-//     position: relative;
-//     display: block;
-//     width: 320px;
-//   }
-
-//   .bar:before {
-//     content: '';
-//     height: 2px;
-//     width: 0;
-//     bottom: 0px;
-//     position: absolute;
-//     background: #2196f3;
-//     transition: 300ms ease all;
-//     left: 0%;
-//   }
-// `
 
 export default Input
