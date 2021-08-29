@@ -78,6 +78,8 @@ interface IBaseProps {
   bgColor?: string
   rounded?: string
   shadow?: string
+  border?: string
+  cursor?: string
 }
 
 const Base = styled.div<IBaseProps>`
@@ -104,10 +106,15 @@ const Base = styled.div<IBaseProps>`
   background-size: cover;
   background-position: center;
 
-  border-radius: 2px;
+  border-radius: ${(props) =>
+    props.rounded && props.theme.radiuses[props.rounded]};
 
   box-shadow: ${(props) =>
     props.shadow && props.theme.boxShadows[props.shadow]};
+
+  border: ${(props) => props.border && props.border};
+
+  cursor: ${(props) => props.cursor && props.cursor};
 
   @media (min-width: ${(props) => props.theme.viewports.tablet}) {
     margin-top: ${(props) => props.mtMd && spacing[props.mtMd]};
@@ -118,9 +125,7 @@ const Base = styled.div<IBaseProps>`
     padding-bottom: ${(props) => props.pbMd && spacing[props.pbMd]};
     padding-left: ${(props) => props.plMd && spacing[props.plMd]};
     padding-right: ${(props) => props.prMd && spacing[props.prMd]};
-
     width: ${(props) => props.widthMd && perimiters[props.widthMd]};
-
     display: ${(props) => props.displayMd && props.displayMd};
   }
 `

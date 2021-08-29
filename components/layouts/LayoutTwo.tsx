@@ -1,11 +1,16 @@
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import styled from 'styled-components'
 
 import Flex from '../Styled/Flex'
+import Text from '../Styled/Text'
 
 import Logo from '../Logo.svg'
+import Close from '../icon-close.svg'
 
 function LayoutTwo(page: ReactNode) {
+  const router = useRouter()
+
   return (
     <Wrapper>
       <Header>
@@ -19,7 +24,22 @@ function LayoutTwo(page: ReactNode) {
         >
           <StyledLogo />
 
-          <Avatar />
+          {router.pathname.includes('new') ? (
+            <Flex
+              as="button"
+              alignItems="center"
+              cursor="pointer"
+              border="none"
+              onClick={() => router.push('/')}
+            >
+              <Close />
+              <Text display="none" displayMd="block" as="span" ml="3">
+                Close
+              </Text>
+            </Flex>
+          ) : (
+            <Avatar />
+          )}
         </Flex>
       </Header>
 

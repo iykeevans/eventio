@@ -18,7 +18,7 @@ type Page<P = {}> = NextPage<P> & {
 }
 
 const Home: Page = () => {
-  const [eventsView, setEventsView] = useState('card')
+  const [eventsView, setEventsView] = useState('list')
 
   return (
     <>

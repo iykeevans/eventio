@@ -14,7 +14,7 @@ type Page<P = {}> = NextPage<P> & {
 
 const SignIn: Page = () => {
   return (
-    <Flex itemsCenter justifyCenter height="screen">
+    <Flex alignItems="center" justifyContent="center" height="screen">
       <Box widthMd="6/12" width="10/12">
         <Text
           as="h1"
@@ -67,7 +67,12 @@ const SignIn: Page = () => {
             </Text>
           </Text>
 
-          <Flex justifyCenter justifyStartMd mt="10" mtMd="14">
+          <Flex
+            justifyContent="center"
+            justifyContentMd="start"
+            mt="10"
+            mtMd="14"
+          >
             <Button as="button" primary>
               SIGN IN
             </Button>
