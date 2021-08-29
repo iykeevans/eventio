@@ -3,16 +3,17 @@ import styled from 'styled-components'
 import Base from './Base'
 
 interface IButtonProps {
-  primary: boolean
+  variant: string
+  size: string
 }
 
 const Button = styled(Base)<IButtonProps>`
-  width: 240px;
-  height: 57px;
+  width: ${(props) => props.size && props.theme.buttonSizes[props.size].width};
+  height: ${(props) =>
+    props.size && props.theme.buttonSizes[props.size].height};
   background-color: ${(props) =>
-    props.primary && props.theme.colors['eventio.primary']};
+    props.variant && props.theme.colors[props.variant]};
   color: white;
-  border-radius: 4px;
   border: 0;
   font-weight: 600;
 `

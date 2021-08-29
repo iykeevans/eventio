@@ -3,8 +3,8 @@ import Base, { spacing } from './Base'
 
 interface IGridProps {
   gridCols: string
-  gridColsMd: string
-  colGap: keyof typeof spacing
+  gridColsMd?: string
+  colGap?: keyof typeof spacing
 }
 
 const Grid = styled(Base)<IGridProps>`
