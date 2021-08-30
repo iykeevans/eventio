@@ -1,7 +1,12 @@
 import type { NextPage } from 'next'
-import { ReactNode, useState } from 'react'
+import router, { useRouter } from 'next/router'
+import { ReactNode, useState, useContext } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+
+import { loginUser } from '../../services/auth-api'
+import { useAuth } from '../../store/auth-context'
+import { ACTIONS } from '../../enums/constants'
 
 import Public from '../../components/layouts/Public'
 import Input from '../../components/Input'
@@ -20,7 +25,10 @@ type FormValues = {
 }
 
 const SignIn: Page = () => {
-  const [error, setError] = useState(false)
+  const [serverError, setServerError] = useState(false)
+  const { dispatch } = useAuth()
+
+  const router = useRouter()
 
   const initialValues: FormValues = { email: '', password: '' }
 
@@ -38,14 +46,26 @@ const SignIn: Page = () => {
     password: Yup.string().required('Description has to be filled up'),
   })
 
-  const handleSubmit = (
+  const handleSubmit = async (
     values: FormValues,
     { setSubmitting }: { setSubmitting: (value: boolean) => void }
   ) => {
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2))
+    try {
+      const payload = await loginUser(values)
+      if (payload) {
+        console.log('==------->>', payload)
+        // dispatch action here
+        dispatch({ type: ACTIONS.LOGIN, payload })
+        router.replace('/')
+      }
+    } catch (err) {
+      console.log('==------->>', err.message.includes('400'))
+      if (err.message.includes('400')) {
+        setServerError(true)
+      }
+    } finally {
       setSubmitting(false)
-    }, 400)
+    }
   }
 
   return (
@@ -64,9 +84,9 @@ const SignIn: Page = () => {
           Sign in to Eventio.
         </Text>
 
-        {error ? (
+        {!serverError ? (
           <Text
-            as="h4"
+            as="p"
             fontSize="sm"
             fontSizeMd="lg"
             align="center"
@@ -79,7 +99,7 @@ const SignIn: Page = () => {
           </Text>
         ) : (
           <Text
-            as="h4"
+            as="p"
             fontSize="sm"
             fontSizeMd="lg"
             align="center"
@@ -103,7 +123,7 @@ const SignIn: Page = () => {
                 label="Email"
                 type="email"
                 {...formik.getFieldProps('email')}
-                hasError={hasError(formik, 'email')}
+                hasError={serverError || hasError(formik, 'email')}
               />
 
               {hasError(formik, 'email') && (
@@ -117,7 +137,7 @@ const SignIn: Page = () => {
                 type="password"
                 mt="7"
                 {...formik.getFieldProps('password')}
-                hasError={hasError(formik, 'password')}
+                hasError={serverError || hasError(formik, 'password')}
               />
 
               {hasError(formik, 'password') && (

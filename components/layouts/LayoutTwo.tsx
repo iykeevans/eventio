@@ -2,6 +2,7 @@ import { ReactNode, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 
+import { useAuth, AuthLoader } from '../../store/auth-context'
 import Flex from '../Styled/Flex'
 import Text from '../Styled/Text'
 
@@ -10,6 +11,17 @@ import Close from '../icon-close.svg'
 
 function LayoutTwo(page: ReactNode) {
   const router = useRouter()
+  const {
+    state: { isLoggedIn },
+  } = useAuth()
+
+  // useEffect(() => {
+  //   if (!isLoggedIn) {
+  //     router.replace('/auth/sign-in')
+  //   }
+  // }, [])
+
+  // if (!isLoggedIn) return <AuthLoader />
 
   return (
     <Wrapper>
