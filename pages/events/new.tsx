@@ -51,15 +51,15 @@ const NewEvent: Page = () => {
           Enter your details below.
         </Text>
 
-        <Input label="Title" mb="5" />
+        <Input label="Title" />
 
-        <Input label="Description" mb="5" />
+        <Input label="Description" mt="5" />
 
-        <Input label="Date" mb="5" />
+        <Input label="Date" mt="5" />
 
-        <Input label="Time" mb="5" />
+        <Input label="Time" mt="5" />
 
-        <Input label="Capacity" />
+        <Input label="Capacity" mt="5" />
 
         <Flex justifyContent="center" mt="6" mtMd="9">
           <Button
