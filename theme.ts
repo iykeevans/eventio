@@ -3,7 +3,12 @@ interface IColors {
   'eventio.base': string
   'eventio.base-light': string
   'eventio.base-light-1': string
+  'eventio.base-light-2': string
+  'eventio.base-light-3': string
+  'eventio.base-light-4': string
   'eventio.primary': string
+  'eventio.disabled': string
+  'eventio.danger': string
 }
 
 export const colors = {
@@ -13,6 +18,7 @@ export const colors = {
   'eventio.base-light-1': '#949EA8',
   'eventio.base-light-2': '#C9CED3',
   'eventio.base-light-3': '#CACDD0',
+  'eventio.base-light-4': '#A9AEB4',
   'eventio.disabled': '#D9DCE1',
   'eventio.danger': '#FF4081',
   'eventio.primary': '#22D486',

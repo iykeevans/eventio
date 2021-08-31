@@ -1,14 +1,11 @@
 import type { AppProps } from 'next/app'
 import { NextPage } from 'next'
-import { ReactNode, Suspense } from 'react'
+import { ReactNode, Fragment } from 'react'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
-
-import { AuthProvider } from '../store/auth-context'
 
 import theme from '../theme'
 
 import 'sanitize.css'
-import AuthGuard from '../components/auth-guard'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -30,12 +27,12 @@ const MyApp = ({ Component, pageProps }: Props) => {
   const getLayout = Component.getLayout || ((page: ReactNode) => page)
 
   return (
-    <AuthProvider>
+    <Fragment>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <AuthGuard>{getLayout(<Component {...pageProps} />)}</AuthGuard>
+        {getLayout(<Component {...pageProps} />)}
       </ThemeProvider>
-    </AuthProvider>
+    </Fragment>
   )
 }
 export default MyApp

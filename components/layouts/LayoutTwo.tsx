@@ -2,7 +2,6 @@ import { ReactNode, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 
-import { useAuth, AuthLoader } from '../../store/auth-context'
 import Flex from '../Styled/Flex'
 import Text from '../Styled/Text'
 
@@ -11,17 +10,6 @@ import Close from '../icon-close.svg'
 
 function LayoutTwo(page: ReactNode) {
   const router = useRouter()
-  const {
-    state: { isLoggedIn },
-  } = useAuth()
-
-  // useEffect(() => {
-  //   if (!isLoggedIn) {
-  //     router.replace('/auth/sign-in')
-  //   }
-  // }, [])
-
-  // if (!isLoggedIn) return <AuthLoader />
 
   return (
     <Wrapper>
@@ -50,7 +38,26 @@ function LayoutTwo(page: ReactNode) {
               </Text>
             </Flex>
           ) : (
-            <Avatar />
+            <Flex alignItems="center">
+              <Avatar alignItems="center" justifyContent="center">
+                <Text
+                  fontSize="sm"
+                  fontWeight="medium"
+                  color="eventio.base-light-1"
+                >
+                  TW
+                </Text>
+              </Avatar>
+
+              <Text
+                ml="2.5"
+                fontSize="sm"
+                fontWeight="medium"
+                color="eventio.base-light-1"
+              >
+                Tom watt
+              </Text>
+            </Flex>
           )}
         </Flex>
       </Header>
@@ -72,7 +79,7 @@ const Header = styled.header`
   align-items: center;
 `
 
-const Avatar = styled.div`
+const Avatar = styled(Flex)`
   height: 40px;
   width: 40px;
   background: #d9dce1;

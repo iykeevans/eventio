@@ -11,17 +11,17 @@ import Text from '../Styled/Text'
 import Logo from '../Logo.svg'
 
 function Public(page: ReactNode) {
-  const router = useRouter()
-  const {
-    state: { isLoggedIn },
-  } = useAuth()
+  // const router = useRouter()
+  // const {
+  //   state: { isLoggedIn },
+  // } = useAuth()
 
-  useEffect(() => {
-    console.log('-------->', isLoggedIn)
-    if (isLoggedIn) {
-      router.push('/')
-    }
-  }, [isLoggedIn])
+  // useEffect(() => {
+  //   console.log('-------->', isLoggedIn)
+  //   if (isLoggedIn) {
+  //     router.push('/')
+  //   }
+  // }, [isLoggedIn])
 
   return (
     <>
