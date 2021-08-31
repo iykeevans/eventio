@@ -10,7 +10,9 @@ interface ButtonProps {
   label?: string
   variant: string
   size: string
-  rounded: string
+  rounded?: string
+  fontSizeMd?: string
+  fontSize?: string
   children?: ReactNode
 }
 
