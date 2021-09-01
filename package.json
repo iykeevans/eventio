@@ -7,15 +7,19 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:js": "eslint --ext .js,.ts,.tsx . --ignore-path .gitignore --fix",
+    "stylelint": "stylelint 'src/**/*.{js,ts,tsx}'",
+    "prettier-format": "prettier --parser typescript --write \"**/*.{js,ts,tsx}\"",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@babel/core": "^7.15.0",
-    "@types/styled-components": "^5.1.12",
-    "@types/yup": "^0.29.13",
     "babel-plugin-inline-react-svg": "^2.0.1",
+    "cookie": "^0.4.1",
+    "date-fns": "^2.23.0",
     "formik": "^2.2.9",
+    "js-cookie": "^3.0.0",
     "ky": "^0.28.5",
     "next": "11.1.0",
     "next-iron-session": "^4.2.0",
@@ -36,9 +40,13 @@
     "@strv/eslint-config-typescript": "^2.3.0",
     "@strv/prettier-config": "^1.0.3",
     "@strv/stylelint-config-styled-components": "^1.1.1",
+    "@types/js-cookie": "^2.2.7",
     "@types/node": "^16.7.1",
     "@types/react": "17.0.19",
-    "@typescript-eslint/parser": "^4.28.0",
+    "@types/styled-components": "^5.1.12",
+    "@types/yup": "^0.29.13",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
     "babel-loader": "^8.2.2",
     "babel-plugin-styled-components": "^1.13.2",
     "eslint": "6",
@@ -48,6 +56,6 @@
     "prettier": "2.3.2",
     "stylelint": "10.0.0",
     "stylelint-config-prettier": "^8.0.2",
-    "typescript": "4.3.5"
+    "typescript": "^4.4.2"
   }
 }

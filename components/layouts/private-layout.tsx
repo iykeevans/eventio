@@ -1,14 +1,14 @@
-import { ReactNode, useEffect } from 'react'
+import React, { ReactNode } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 
-import Flex from '../Styled/Flex'
-import Text from '../Styled/Text'
+import Flex from '../styled/Flex'
+import Text from '../styled/Text'
 
-import Logo from '../Logo.svg'
+import Logo from '../logo.svg'
 import Close from '../icon-close.svg'
 
-function LayoutTwo(page: ReactNode) {
+function PrivateLayout({ children }: { children: ReactNode }) {
   const router = useRouter()
 
   return (
@@ -62,7 +62,7 @@ function LayoutTwo(page: ReactNode) {
         </Flex>
       </Header>
 
-      {page}
+      {children}
     </Wrapper>
   )
 }
@@ -91,4 +91,4 @@ const Wrapper = styled.div`
   min-height: 100vh;
 `
 
-export default LayoutTwo
+export default PrivateLayout

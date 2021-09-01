@@ -1,8 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { Session } from 'next-iron-session'
+
 import withSession from '../../utils/session'
 
 export default withSession(
-  async (req: NextApiRequest, res: NextApiResponse) => {
+  async (req: NextApiRequest & { session: Session }, res: NextApiResponse) => {
     const user = req.session.get('user')
 
     if (user) {

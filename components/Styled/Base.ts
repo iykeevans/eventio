@@ -80,6 +80,7 @@ interface IBaseProps {
   shadow?: string
   border?: string
   cursor?: string
+  flexNone?: boolean
 }
 
 const Base = styled.div<IBaseProps>`
@@ -115,6 +116,8 @@ const Base = styled.div<IBaseProps>`
   border: ${(props) => props.border && props.border};
 
   cursor: ${(props) => props.cursor && props.cursor};
+
+  ${(props) => props.flexNone && 'flex: none'};
 
   @media (min-width: ${(props) => props.theme.viewports.tablet}) {
     margin-top: ${(props) => props.mtMd && spacing[props.mtMd]};

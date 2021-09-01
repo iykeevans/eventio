@@ -1,19 +1,10 @@
 // this file is a wrapper with defaults to be used in both API routes and `getServerSideProps` functions
-import { NextApiRequest, NextApiResponse } from 'next'
-import { Session, withIronSession } from 'next-iron-session'
+import { withIronSession } from 'next-iron-session'
 
-// optionally add stronger typing for next-specific implementation
-export type NextIronRequest = NextApiRequest & { session: Session }
-export type NextIronHandler = (
-  req: NextIronRequest,
-  res: NextApiResponse
-) => void | Promise<void>
-
-const withSession = (handler: NextIronHandler) =>
+const withSession = (handler: any) =>
   withIronSession(handler, {
     password:
-      'helloworldhelloworldhelloworldhelloworldhelloworldhelloworldhelloworldhelloworld' ||
-      process.env.SECRET_COOKIE_PASSWORD,
+      'helloworldhelloworldhelloworldhelloworldhelloworldhelloworldhelloworldhelloworld',
     cookieName: 'appToken',
     cookieOptions: {
       // the next line allows to use the session in non-https environments like
