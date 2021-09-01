@@ -1,28 +1,13 @@
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
-import { ReactNode, useEffect } from 'react'
-import { useRouter } from 'next/router'
 
-import { useAuth, AuthLoader } from '../../store/auth-context'
+import Flex from '../styled/Flex'
+import Box from '../styled/Box'
+import Text from '../styled/Text'
 
-import Flex from '../Styled/Flex'
-import Box from '../Styled/Box'
-import Text from '../Styled/Text'
+import Logo from '../logo.svg'
 
-import Logo from '../Logo.svg'
-
-function Public(page: ReactNode) {
-  // const router = useRouter()
-  // const {
-  //   state: { isLoggedIn },
-  // } = useAuth()
-
-  // useEffect(() => {
-  //   console.log('-------->', isLoggedIn)
-  //   if (isLoggedIn) {
-  //     router.push('/')
-  //   }
-  // }, [isLoggedIn])
-
+function PublicLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <Header>
@@ -95,7 +80,7 @@ function Public(page: ReactNode) {
         </Box>
 
         <Box as="section" width="full" widthMd="8/12" ml="auto">
-          {page}
+          {children}
         </Box>
       </Flex>
     </>
@@ -126,4 +111,4 @@ const StyledLogo = styled(Logo)`
   }
 `
 
-export default Public
+export default PublicLayout

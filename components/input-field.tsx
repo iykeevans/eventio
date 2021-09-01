@@ -1,7 +1,7 @@
-import { SyntheticEvent } from 'react'
+import React, { SyntheticEvent } from 'react'
 import styled from 'styled-components'
 
-import Base, { spacing } from './Styled/Base'
+import Base, { spacing } from './styled/Base'
 
 interface IInputProps {
   label: string

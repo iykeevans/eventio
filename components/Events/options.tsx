@@ -1,8 +1,9 @@
+import React from 'react'
 import styled from 'styled-components'
 
-import Flex from '../Styled/Flex'
-import Text from '../Styled/Text'
-import Box from '../Styled/Box'
+import Flex from '../styled/Flex'
+import Text from '../styled/Text'
+import Box from '../styled/Box'
 
 import GridView from './grid-view.svg'
 import ListView from './list-view.svg'
@@ -15,9 +16,8 @@ interface IProps {
 }
 
 function Options(props: IProps) {
-  const { filterOption, eventsView, setFilterOption, setEventsView } = props
-
   const filterOptions = ['ALL EVENTS', 'FUTURE EVENTS', 'PAST EVENTS']
+  const { filterOption, eventsView, setFilterOption, setEventsView } = props
 
   return (
     <Flex
@@ -59,11 +59,11 @@ function Options(props: IProps) {
       <Box>
         <StyledGridView
           mr="5"
-          active={eventsView === 'card'}
+          $active={eventsView === 'card'}
           onClick={() => setEventsView('card')}
         />
         <StyledListView
-          active={eventsView === 'list'}
+          $active={eventsView === 'list'}
           onClick={() => setEventsView('list')}
         />
       </Box>
@@ -74,7 +74,7 @@ function Options(props: IProps) {
 const StyledGridView = styled(GridView)`
   margin-right: 1rem;
   fill: ${(props) =>
-    props.active
+    props.$active
       ? props.theme.colors['eventio.base']
       : props.theme.colors['eventio.disabled']};
   cursor: pointer;
@@ -86,7 +86,7 @@ const StyledGridView = styled(GridView)`
 
 const StyledListView = styled(ListView)`
   fill: ${(props) =>
-    props.active
+    props.$active
       ? props.theme.colors['eventio.base']
       : props.theme.colors['eventio.disabled']};
   cursor: pointer;

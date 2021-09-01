@@ -1,6 +1,5 @@
 import type { AppProps } from 'next/app'
-import { NextPage } from 'next'
-import { ReactNode, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 import theme from '../theme'
@@ -14,25 +13,14 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-type Page<P = {}> = NextPage<P> & {
-  getLayout?: (page: ReactNode) => ReactNode
-}
-
-type Props = AppProps & {
-  Component: Page
-}
-
-const MyApp = ({ Component, pageProps }: Props) => {
-  // Use the layout defined at the page level, if available
-  const getLayout = Component.getLayout || ((page: ReactNode) => page)
-
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <Fragment>
+    <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        {getLayout(<Component {...pageProps} />)}
+        <Component {...pageProps} />
       </ThemeProvider>
-    </Fragment>
+    </>
   )
 }
 export default MyApp

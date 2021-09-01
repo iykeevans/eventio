@@ -1,54 +1,29 @@
-import type { NextPage } from 'next'
-import { ReactNode, useState } from 'react'
+import type { NextPage, NextApiRequest, NextApiResponse } from 'next'
+import { Session } from 'next-iron-session'
+import React, { useState } from 'react'
 import { Formik } from 'formik'
 import ky from 'ky'
-import * as yup from 'yup'
+import { loginSchema } from '../../utils/validateSchema'
 
-import { loginUser } from '../../services/auth-api'
-import { useAuth } from '../../store/auth-context'
-import { ACTIONS } from '../../enums/constants'
-
-import useUser from '../../custom-hooks/use-user'
 import useHasError from '../../custom-hooks/use-has-error'
 import withSession from '../../utils/session'
-// import useValidationSchema from '../../custom-hooks/use-validation-schema'
 
-import Public from '../../components/layouts/Public'
-import Input from '../../components/Input'
-import Flex from '../../components/Styled/Flex'
-import Text from '../../components/Styled/Text'
-import Box from '../../components/Styled/Box'
-import Button from '../../components/Button'
+import PublicLayout from '../../components/layouts/public-layout'
+import Input from '../../components/input-field'
+import Flex from '../../components/styled/Flex'
+import Text from '../../components/styled/Text'
+import Box from '../../components/styled/Box'
+import Button from '../../components/button'
 import router from 'next/router'
-
-type Page<P = {}> = NextPage<P> & {
-  getLayout?: (page: ReactNode) => ReactNode
-}
 
 type FormValues = {
   email: string
   password: string
 }
 
-const SignIn: Page = () => {
-  const [serverError, setServerError] = useState(false)
+const SignIn: NextPage = () => {
+  const [serverError, setServerError] = useState<boolean>(false)
   const initialValues: FormValues = { email: '', password: '' }
-  const validationSchema = () =>
-    yup.object({
-      email: yup
-        .string()
-        .email('Invalid email address')
-        .required('Description has to be filled up'),
-      password: yup.string().required('Description has to be filled up'),
-    })
-
-  // here we just check if user is already logged in and redirect to profile
-  // const { mutateUser } = useUser({
-  //   redirectTo: '/',
-  //   redirectIfFound: true,
-  // })
-
-  const { dispatch } = useAuth()
 
   const handleSubmit = async (
     values: FormValues,
@@ -68,130 +43,140 @@ const SignIn: Page = () => {
   }
 
   return (
-    <Flex alignItems="center" justifyContent="center" height="screen">
-      <Box widthMd="6/12" width="10/12">
-        <Text
-          as="h1"
-          fontSize="2xl"
-          fontSizeMd="2.5xl"
-          align="center"
-          alignMd="left"
-          mt="0"
-          mb="2"
-          color="eventio.base"
-        >
-          Sign in to Eventio.
-        </Text>
-
-        {!serverError ? (
+    <PublicLayout>
+      <Flex alignItems="center" justifyContent="center" height="screen">
+        <Box widthMd="6/12" width="10/12">
           <Text
-            as="p"
-            fontSize="sm"
-            fontSizeMd="lg"
+            as="h1"
+            fontSize="2xl"
+            fontSizeMd="2.5xl"
             align="center"
             alignMd="left"
             mt="0"
-            mb="10"
-            color="eventio.base-light-1"
+            mb="2"
+            color="eventio.base"
           >
-            Enter your details below.
+            Sign in to Eventio.
           </Text>
-        ) : (
-          <Text
-            as="p"
-            fontSize="sm"
-            fontSizeMd="lg"
-            align="center"
-            alignMd="left"
-            mt="0"
-            mb="10"
-            color="eventio.danger"
+
+          {!serverError ? (
+            <Text
+              as="p"
+              fontSize="sm"
+              fontSizeMd="lg"
+              align="center"
+              alignMd="left"
+              mt="0"
+              mb="10"
+              color="eventio.base-light-1"
+            >
+              Enter your details below.
+            </Text>
+          ) : (
+            <Text
+              as="p"
+              fontSize="sm"
+              fontSizeMd="lg"
+              align="center"
+              alignMd="left"
+              mt="0"
+              mb="10"
+              color="eventio.danger"
+            >
+              Oops! That email and pasword combination is not valid.
+            </Text>
+          )}
+
+          <Formik
+            initialValues={initialValues}
+            validationSchema={loginSchema}
+            onSubmit={handleSubmit}
           >
-            Oops! That email and pasword combination is not valid.
-          </Text>
-        )}
+            {(formik) => (
+              <Flex as="form" direction="column" onSubmit={formik.handleSubmit}>
+                <Input
+                  label="Email"
+                  type="email"
+                  {...formik.getFieldProps('email')}
+                  hasError={serverError || useHasError(formik, 'email')}
+                />
 
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema()}
-          onSubmit={handleSubmit}
-        >
-          {(formik) => (
-            <Flex as="form" direction="column" onSubmit={formik.handleSubmit}>
-              <Input
-                label="Email"
-                type="email"
-                {...formik.getFieldProps('email')}
-                hasError={serverError || useHasError(formik, 'email')}
-              />
+                {useHasError(formik, 'email') && (
+                  <Text fontSize="sm" color="eventio.danger" mt="2.5">
+                    {formik.errors.email}
+                  </Text>
+                )}
 
-              {useHasError(formik, 'email') && (
-                <Text fontSize="sm" color="eventio.danger" mt="2.5">
-                  {formik.errors.email}
-                </Text>
-              )}
+                <Input
+                  label="Password"
+                  type="password"
+                  mt="7"
+                  {...formik.getFieldProps('password')}
+                  hasError={serverError || useHasError(formik, 'password')}
+                />
 
-              <Input
-                label="Password"
-                type="password"
-                mt="7"
-                {...formik.getFieldProps('password')}
-                hasError={serverError || useHasError(formik, 'password')}
-              />
+                {useHasError(formik, 'password') && (
+                  <Text fontSize="sm" color="eventio.danger" mt="2.5">
+                    {formik.errors.password}
+                  </Text>
+                )}
 
-              {useHasError(formik, 'password') && (
-                <Text fontSize="sm" color="eventio.danger" mt="2.5">
-                  {formik.errors.password}
-                </Text>
-              )}
-
-              <Text
-                as="span"
-                fontSize="sm"
-                align="center"
-                alignMd="left"
-                displayMd="none"
-                mt="7"
-                color="eventio.base-light-1"
-              >
-                Don’t have account?{' '}
                 <Text
                   as="span"
                   fontSize="sm"
-                  fontWeight="medium"
-                  color="eventio.base-light"
+                  align="center"
+                  alignMd="left"
+                  displayMd="none"
+                  mt="7"
+                  color="eventio.base-light-1"
                 >
-                  SIGN UP
+                  Don’t have account?{' '}
+                  <Text
+                    as="span"
+                    fontSize="sm"
+                    fontWeight="medium"
+                    color="eventio.base-light"
+                  >
+                    SIGN UP
+                  </Text>
                 </Text>
-              </Text>
 
-              <Flex
-                justifyContent="center"
-                justifyContentMd="start"
-                mt="10"
-                mtMd="14"
-              >
-                <Button
-                  label="SIGN IN"
-                  variant="eventio.primary"
-                  rounded="eventio.rounded"
-                  size="lg"
-                  loading={formik.isSubmitting}
+                <Flex
+                  justifyContent="center"
+                  justifyContentMd="start"
+                  mt="10"
+                  mtMd="14"
                 >
-                  SIGN IN
-                </Button>
+                  <Button
+                    label="SIGN IN"
+                    variant="eventio.primary"
+                    rounded="eventio.rounded"
+                    size="lg"
+                    loading={formik.isSubmitting}
+                  >
+                    SIGN IN
+                  </Button>
+                </Flex>
               </Flex>
-            </Flex>
-          )}
-        </Formik>
-      </Box>
-    </Flex>
+            )}
+          </Formik>
+        </Box>
+      </Flex>
+    </PublicLayout>
   )
 }
 
-SignIn.getLayout = Public
+interface IWithSessionArgs {
+  req: NextApiRequest & {
+    session: Session
+  }
+  res: NextApiResponse
+}
 
-export const getServerSideProps = withSession(async function ({ req, res }) {
+export const getServerSideProps = withSession(async function ({
+  req,
+  res,
+}: IWithSessionArgs) {
   const user = req.session.get('user')
 
   if (user) {
@@ -202,7 +187,7 @@ export const getServerSideProps = withSession(async function ({ req, res }) {
   }
 
   return {
-    props: { user: req.session.get('user') || null },
+    props: { props: {} },
   }
 })
 

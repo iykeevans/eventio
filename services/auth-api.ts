@@ -1,5 +1,5 @@
 import apiClient from '.'
-import { transformUserData, IUser } from '../utils/transform-data'
+import { transformUserData, IUser } from '../utils/transform-response-data'
 
 export const loginUser = async (payload: {}): Promise<IUser> => {
   try {

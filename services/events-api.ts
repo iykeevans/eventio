@@ -1,18 +1,38 @@
 import apiClient from '.'
-import { transformUserData, IUser } from '../utils/transform-data'
+import cookies from 'js-cookie'
 
-export const loginUser = async (payload: {}): Promise<IUser> => {
+import { transformEventData, IEvent } from '../utils/transform-response-data'
+
+export const fetchEvents = async () => {
   try {
-    const response = await apiClient.post('auth/native', { json: payload })
+    const response: Response = await apiClient.get('events')
+    return transformEventData(await response.json())
+  } catch (error) {
+    throw new Error(error)
+  }
+}
 
-    localStorage.setItem('token', response.headers.get('authorization') || '')
-    localStorage.setItem(
-      'refreshToken',
-      response.headers.get('refresh-token') || ''
+const authorization = cookies.get('authorization')
+
+const extendedApiClient = apiClient.extend({ headers: { authorization } })
+
+export const leaveEvent = async (eventId: string) => {
+  try {
+    const response: Response = await extendedApiClient.delete(
+      `events/${eventId}/attendees/me`
     )
+    return await response.json()
+  } catch (error) {
+    throw new Error(error)
+  }
+}
 
-    // console.log(data.headers.get('authorization'))
-    return transformUserData(await response.json())
+export const joinEvent = async (eventId: string) => {
+  try {
+    const response: Response = await extendedApiClient.post(
+      `events/${eventId}/attendees/me`
+    )
+    return await response.json()
   } catch (error) {
     throw new Error(error)
   }
