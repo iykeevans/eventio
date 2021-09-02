@@ -18,14 +18,18 @@ export const newEventSchema = yup.object({
       /^\d{2}([/])\d{2}\1\d{4}$/,
       'Invalid date format, e.g MM/DD/YYYY (10/10/2021)'
     )
-    .test('customValidateDate', 'Invalid date', function (value: string) {
-      return new Date(value).toString() !== 'Invalid Date'
-    })
+    .test(
+      'customValidateDate',
+      'Invalid date',
+      function (value: string | undefined) {
+        return new Date(value || '').toString() !== 'Invalid Date'
+      }
+    )
     .test(
       'customValidateDateGreaterThanCurrentDate',
       'Date cannot be less than todays date',
-      function (value: string) {
-        return Date.parse(value) > Date.now()
+      function (value: string | undefined) {
+        return Date.parse(value || '') > Date.now()
       }
     ),
   time: yup
