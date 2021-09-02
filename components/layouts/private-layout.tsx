@@ -16,7 +16,7 @@ function PrivateLayout({
   user,
 }: {
   children: ReactNode
-  user: IUser
+  user?: IUser
 }) {
   const router = useRouter()
 
