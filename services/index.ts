@@ -8,13 +8,22 @@ export default ky.create({
   },
   hooks: {
     afterResponse: [
-      (_request, _options, response) => {
-        if (response.status == 403) {
-          console.log('we r fucked')
-          // clear cookies here
+      async (_request, _options, response) => {
+        if (response.status == 401) {
+          await ky.get('/api/logout')
+          window.location.assign('/auth/sign-in')
 
           cookies.remove('authorization')
+          cookies.remove('refresh-token')
+          return
+        }
+
+        if (response.status == 403) {
+          await ky.get('/api/logout')
           window.location.assign('/app-refresh')
+
+          cookies.remove('authorization')
+          return
         }
       },
     ],
