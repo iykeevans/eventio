@@ -38,7 +38,12 @@ const NewEvent: NextPage = () => {
   ) => {
     try {
       const { date, time, ...rest } = values
-      await createEvent({ ...rest, startsAt: '2021-12-10T10:46:33.901Z' })
+      const dateArray = date.split('/')
+      const timeArray = date.split(':')
+      await createEvent({
+        ...rest,
+        startsAt: `${dateArray[2]}-${dateArray[0]}-${dateArray[1]}T${timeArray[0]}:${timeArray[1]}:00.000Z`,
+      })
       router.push('/')
     } catch (err: any) {
       console.log('----->>', err)
