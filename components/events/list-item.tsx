@@ -29,11 +29,13 @@ function ListItem(props: IListItemProps) {
       prMd="7"
       pl="5"
       pr="5"
-      pt="5"
-      pb="5"
+      pt="4"
+      ptMd="5"
+      pb="4"
+      pbMd="5"
       mb="4"
     >
-      <Text color="eventio.base" fontSize="2xl" fontSizeMd="lg" widthMd="3/12">
+      <Text color="eventio.base" fontSize="lg" fontSizeMd="lg" widthMd="3/12">
         {trimString(event.title, 26)}
       </Text>
 
@@ -41,7 +43,7 @@ function ListItem(props: IListItemProps) {
         color="eventio.base-light-1"
         fontSize="base"
         widthMd="3/12"
-        mb="5"
+        mb="4"
         mbMd="0"
       >
         {trimString(event.description, 30)}
@@ -62,8 +64,7 @@ function ListItem(props: IListItemProps) {
         <Flex direction="column" directionMd="row" widthMd="full" mrMd="16">
           <Text
             color="eventio.base-light-3"
-            fontSize="base"
-            fontSizeMd="sm"
+            fontSize="sm"
             widthMd="full"
             mb="2"
             mbMd="0"
@@ -72,12 +73,7 @@ function ListItem(props: IListItemProps) {
             {event.startsAt}
           </Text>
 
-          <Text
-            color="eventio.base-light-1"
-            fontSize="base"
-            fontSizeMd="sm"
-            widthMd="4/12"
-          >
+          <Text color="eventio.base-light-1" fontSize="sm" widthMd="4/12">
             {`${event.attendees.length} of ${event.capacity}`}
           </Text>
         </Flex>

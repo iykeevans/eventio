@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { NextApiRequest, NextApiResponse } from 'next'
+import { useRouter } from 'next/router'
 import { Session } from 'next-iron-session'
 
 import withSession from '../utils/session'
@@ -12,12 +13,15 @@ import Grid from '../components/styled/Grid'
 import ListItem from '../components/events/list-item'
 import CardItem from '../components/events/card-item'
 import Spinner from '../components/ui-elements/spinner'
+import FloatingIcon from '../components/ui-elements/floating-icon'
 import { IEvent } from '../utils/types/events'
 import { IUser } from '../utils/types/users'
 
 import { removeAttendee, addAttendee } from '../utils/attendance-manager'
 
 const Home = ({ user }: { user: IUser }) => {
+  const router = useRouter()
+
   const [loading, setLoading] = useState<boolean>(true)
   const [events, setEvents] = useState<IEvent[]>([])
   const [eventsView, setEventsView] = useState<string>('list')
@@ -52,6 +56,11 @@ const Home = ({ user }: { user: IUser }) => {
 
   return (
     <PrivateLayout user={user}>
+      <FloatingIcon
+        bgColor="eventio.base"
+        onClick={() => router.push('/events/new')}
+      />
+
       <Options
         eventsView={eventsView}
         setEventsView={setEventsView}

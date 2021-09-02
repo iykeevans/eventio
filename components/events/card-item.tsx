@@ -24,24 +24,24 @@ function CardItem(props: IEventViewProps) {
 
   return (
     <EventGridCard
-      pl="5"
+      pl="6"
       plMd="8"
-      pr="5"
+      pr="6"
       prMd="8"
-      pt="9"
+      pt="7"
       ptMd="8"
-      pb="9"
+      pb="6"
       pbMd="8"
     >
-      <Text color="eventio.base-light-3" fontSizeMd="sm" mb="6" mbMd="5">
+      <Text color="eventio.base-light-3" fontSize="sm" mb="6" mbMd="5">
         {event.startsAt}
       </Text>
 
-      <Text color="eventio.base" fontSize="2xl">
+      <Text color="eventio.base" fontSize="xl">
         {trimString(event.title, 26)}
       </Text>
 
-      <Text color="eventio.base-light" fontSizeMd="sm" mb="8">
+      <Text color="eventio.base-light" fontSizeMd="sm" mb="8" mbMd="7">
         {event.owner.firstName} {event.owner.lastName}
       </Text>
 
