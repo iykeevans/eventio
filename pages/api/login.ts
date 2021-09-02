@@ -10,11 +10,14 @@ export default withSession(
   async (req: NextApiRequest & { session: Session }, res: NextApiResponse) => {
     try {
       const response = await ky.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/native`,
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/native` ||
+          'https://testproject-api-v2.strv.com/auth/native',
         {
           json: req.body,
           headers: {
-            APIKey: process.env.NEXT_PUBLIC_API_KEY,
+            APIKey:
+              process.env.NEXT_PUBLIC_API_KEY ||
+              'e2a564cc70147d26a20052c030b2643f005b6bd2',
           },
         }
       )
