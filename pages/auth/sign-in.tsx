@@ -33,7 +33,6 @@ const SignIn: NextPage = () => {
       await ky.post('/api/login', { json: values })
       router.push('/')
     } catch (err) {
-      // console.log('==------->>', err.message.includes('400'))
       if (err.message.includes('400')) {
         setServerError(true)
       }
@@ -150,7 +149,7 @@ const SignIn: NextPage = () => {
                   <Button
                     label="SIGN IN"
                     variant="eventio.primary"
-                    rounded="eventio.rounded"
+                    rounded="eventio.rounded-sm"
                     size="lg"
                     loading={formik.isSubmitting}
                   >
