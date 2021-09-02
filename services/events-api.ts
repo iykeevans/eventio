@@ -1,7 +1,7 @@
 import apiClient from '.'
 import cookies from 'js-cookie'
 
-import { transformEventData, IEvent } from '../utils/transform-response-data'
+import { transformEventData } from '../utils/transform-response-data'
 
 export const fetchEvents = async () => {
   try {
