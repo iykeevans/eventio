@@ -25,10 +25,10 @@ const Home = ({ user }: { user: IUser }) => {
 
   useEffect(() => {
     fetchEvents()
-      .then((res) => {
-        setEvents(res)
+      .then((response) => {
+        setEvents(response)
       })
-      .catch((err) => console.log(err))
+      .catch((error) => console.log(error))
       .finally(() => setLoading(false))
   }, [])
 
