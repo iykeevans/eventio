@@ -48,9 +48,10 @@ export default withSession(
       req.session.set('user', user)
       await req.session.save()
       res.json(user)
-    } catch (error) {
-      const { response: fetchResponse } = error
-      res.status(fetchResponse?.status || 500).json(error.data)
+    } catch (error: any) {
+      if (error) {
+        res.status(error?.response?.status || 500).json(error?.data)
+      }
     }
   }
 )
