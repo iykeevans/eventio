@@ -16,7 +16,7 @@ function PrivateLayout({
   user,
 }: {
   children: ReactNode
-  user: IUser
+  user?: IUser
 }) {
   const router = useRouter()
 
@@ -53,8 +53,8 @@ function PrivateLayout({
             </Flex>
           ) : (
             <Avatar
-              userName={`${user.firstName} ${user.lastName}`}
-              userInitials={`${user.firstName[0]} ${user.lastName[0]}`}
+              userName={`${user?.firstName} ${user?.lastName}`}
+              userInitials={`${user?.firstName[0]} ${user?.lastName[0]}`}
               handleLogout={handleLogout}
             />
           )}
