@@ -32,8 +32,9 @@ const SignIn: NextPage = () => {
     try {
       await ky.post('/api/login', { json: values })
       router.push('/')
-    } catch (err) {
-      if (err.message.includes('400')) {
+    } catch (err: any) {
+      console.log('----->>', err)
+      if (err?.message.includes('400')) {
         setServerError(true)
       }
     } finally {
