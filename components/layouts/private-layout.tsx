@@ -4,12 +4,26 @@ import styled from 'styled-components'
 
 import Flex from '../styled/Flex'
 import Text from '../styled/Text'
+import Avatar from '../avatar'
 
 import Logo from '../logo.svg'
 import Close from '../icon-close.svg'
+import ky from 'ky'
+import { IUser } from '../../utils/types/users'
 
-function PrivateLayout({ children }: { children: ReactNode }) {
+function PrivateLayout({
+  children,
+  user,
+}: {
+  children: ReactNode
+  user?: IUser
+}) {
   const router = useRouter()
+
+  const handleLogout = async () => {
+    await ky.get('/api/logout')
+    router.push('/auth/sign-in')
+  }
 
   return (
     <Wrapper>
@@ -38,26 +52,11 @@ function PrivateLayout({ children }: { children: ReactNode }) {
               </Text>
             </Flex>
           ) : (
-            <Flex alignItems="center">
-              <Avatar alignItems="center" justifyContent="center">
-                <Text
-                  fontSize="sm"
-                  fontWeight="medium"
-                  color="eventio.base-light-1"
-                >
-                  TW
-                </Text>
-              </Avatar>
-
-              <Text
-                ml="2.5"
-                fontSize="sm"
-                fontWeight="medium"
-                color="eventio.base-light-1"
-              >
-                Tom watt
-              </Text>
-            </Flex>
+            <Avatar
+              userName={`${user?.firstName} ${user?.lastName}`}
+              userInitials={`${user?.firstName[0]} ${user?.lastName[0]}`}
+              handleLogout={handleLogout}
+            />
           )}
         </Flex>
       </Header>
@@ -77,13 +76,6 @@ const Header = styled.header`
   width: 100%;
   display: flex;
   align-items: center;
-`
-
-const Avatar = styled(Flex)`
-  height: 40px;
-  width: 40px;
-  background: #d9dce1;
-  border-radius: 100%;
 `
 
 const Wrapper = styled.div`

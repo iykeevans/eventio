@@ -25,6 +25,7 @@ interface ITextProps {
   fontWeight?: keyof typeof fontWeights
   fontFamily?: string
   letterSpacing?: string
+  listStyle?: string
 }
 
 const fontWeights = {
@@ -39,6 +40,7 @@ const Text = styled(Base)<ITextProps>`
     props.fontSize ? textSizes[props.fontSize] : textSizes.base};
   text-align: ${(props) => (props.align ? props.align : 'left')};
   letter-spacing: ${(props) => props.letterSpacing && props.letterSpacing};
+  list-style: ${(props) => props.listStyle && props.listStyle};
   font-weight: ${(props) =>
     props.fontWeight ? fontWeights[props.fontWeight] : fontWeights.regular};
   color: ${(props) => props.color && props.theme.colors[props.color]};
