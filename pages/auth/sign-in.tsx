@@ -1,7 +1,8 @@
 import type { NextPage, NextApiRequest, NextApiResponse } from 'next'
 import { Session } from 'next-iron-session'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Formik } from 'formik'
+import { useRouter } from 'next/router'
 import ky from 'ky'
 import { loginSchema } from '../../utils/validateSchema'
 
@@ -14,7 +15,6 @@ import Flex from '../../components/styled/Flex'
 import Text from '../../components/styled/Text'
 import Box from '../../components/styled/Box'
 import Button from '../../components/button'
-import router from 'next/router'
 
 type FormValues = {
   email: string
@@ -22,6 +22,12 @@ type FormValues = {
 }
 
 const SignIn: NextPage = () => {
+  const router = useRouter()
+
+  useEffect(() => {
+    router.prefetch('/')
+  }, [])
+
   const [serverError, setServerError] = useState<boolean>(false)
   const initialValues: FormValues = { email: '', password: '' }
 
@@ -33,7 +39,6 @@ const SignIn: NextPage = () => {
       await ky.post('/api/login', { json: values })
       router.push('/')
     } catch (err: any) {
-      console.log('----->>', err)
       if (err?.message.includes('400')) {
         setServerError(true)
       }

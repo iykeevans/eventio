@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 
@@ -19,6 +19,10 @@ function PrivateLayout({
   user?: IUser
 }) {
   const router = useRouter()
+
+  useEffect(() => {
+    router.prefetch('/auth/sign-in')
+  }, [])
 
   const handleLogout = async () => {
     await ky.get('/api/logout')
@@ -81,6 +85,7 @@ const Header = styled.header`
 const Wrapper = styled.div`
   background: #f9f9fb;
   min-height: 100vh;
+  padding-bottom: 50px;
 `
 
 export default PrivateLayout

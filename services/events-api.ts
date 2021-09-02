@@ -39,3 +39,21 @@ export const joinEvent = async (eventId: string) => {
     return error
   }
 }
+
+type newEvent = {
+  title: string
+  description: string
+  startsAt: string
+  capacity: string
+}
+
+export const createEvent = async (event: newEvent) => {
+  try {
+    const response: Response = await extendedApiClient.post('events', {
+      json: event,
+    })
+    return await response.json()
+  } catch (error) {
+    return error
+  }
+}

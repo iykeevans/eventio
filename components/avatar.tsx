@@ -26,7 +26,7 @@ function Avatar({
       >
         <UserCircle alignItems="center" justifyContent="center">
           <Text fontSize="sm" fontWeight="medium" color="eventio.base-light-1">
-            {userInitials}
+            {userInitials || 'D D'}
           </Text>
         </UserCircle>
 
@@ -37,7 +37,7 @@ function Avatar({
           fontWeight="medium"
           color="eventio.base-light-1"
         >
-          {userName}
+          {userName || 'dum dum'}
         </Text>
 
         <Arrow />
