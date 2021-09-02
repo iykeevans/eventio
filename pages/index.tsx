@@ -51,7 +51,7 @@ const Home = ({ user }: { user: IUser }) => {
   }
 
   return (
-    <PrivateLayout>
+    <PrivateLayout user={user}>
       <Options
         eventsView={eventsView}
         setEventsView={setEventsView}
