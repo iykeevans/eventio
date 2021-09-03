@@ -9,20 +9,16 @@ import { IEvent } from './types/events'
  * @param {Array} events
  * @returns {Boolean}
  */
-
 const filterDate = (filterOption: string, events: IEvent[] = []) => {
-  if (!events || !events.length) return []
-  return events.filter((event) => {
-    const date = new Date(event.startsAt)
+  if (filterOption === 'PAST EVENTS') {
+    return events.filter((event) => isPast(new Date(event.startsAt)))
+  }
 
-    if (filterOption === 'PAST EVENTS') {
-      return isPast(date)
-    }
-    if (filterOption === 'FUTURE EVENTS') {
-      return isFuture(date)
-    }
-    return event
-  })
+  if (filterOption === 'FUTURE EVENTS') {
+    return events.filter((event) => isFuture(new Date(event.startsAt)))
+  }
+
+  return [...events]
 }
 
 export default filterDate

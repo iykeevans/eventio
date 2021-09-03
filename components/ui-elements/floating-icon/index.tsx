@@ -15,6 +15,7 @@ function FloatingIcon({ bgColor, onClick }: IFloatingIconProps) {
   return (
     <StyledFloatingIcon
       as="button"
+      aria-label="floating icon"
       bgColor={bgColor}
       position="fixed"
       alignItems="center"

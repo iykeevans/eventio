@@ -1,5 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 import PublicLayout from '../components/layouts/public-layout'
 import Box from '../components/styled/Box'
@@ -12,6 +13,10 @@ function Custom404() {
 
   return (
     <PublicLayout>
+      <Head>
+        <title>Eventio - 404</title>
+      </Head>
+
       <Flex
         as="main"
         alignItems="center"
