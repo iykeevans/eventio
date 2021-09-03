@@ -19,6 +19,7 @@ export const loginUser = async (payload: {}): Promise<IUser> => {
 
 export const refreshToken = async () => {
   try {
+    localStorage.removeItem('token')
     const refreshToken = localStorage.getItem('refresh-token')
 
     const response = await apiClient.post('auth/native', {
