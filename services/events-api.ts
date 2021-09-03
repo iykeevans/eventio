@@ -13,16 +13,13 @@ export const fetchEvents = async (): Promise<IEvent[]> => {
   }
 }
 
-const token = localStorage.getItem('token') || ''
-
-const extendedApiClient = apiClient.extend({
-  headers: { authorization: token },
-})
-
 export const leaveEvent = async (eventId: string) => {
   try {
-    const response: Response = await extendedApiClient.delete(
-      `events/${eventId}/attendees/me`
+    const authorization = localStorage.getItem('token') || ''
+
+    const response: Response = await apiClient.delete(
+      `events/${eventId}/attendees/me`,
+      { headers: { authorization } }
     )
     return await response.json()
   } catch (error) {
@@ -32,8 +29,11 @@ export const leaveEvent = async (eventId: string) => {
 
 export const joinEvent = async (eventId: string) => {
   try {
-    const response: Response = await extendedApiClient.post(
-      `events/${eventId}/attendees/me`
+    const authorization = localStorage.getItem('token') || ''
+
+    const response: Response = await apiClient.post(
+      `events/${eventId}/attendees/me`,
+      { headers: { authorization } }
     )
     return await response.json()
   } catch (error) {
@@ -50,8 +50,11 @@ type newEvent = {
 
 export const createEvent = async (event: newEvent) => {
   try {
-    const response: Response = await extendedApiClient.post('events', {
+    const authorization = localStorage.getItem('token') || ''
+
+    const response: Response = await apiClient.post('events', {
       json: event,
+      headers: { authorization },
     })
     return await response.json()
   } catch (error) {
