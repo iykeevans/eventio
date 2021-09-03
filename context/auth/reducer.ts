@@ -28,10 +28,8 @@ const authReducer = (
   state: IInitialState,
   action: { payload: any; type: ACTIONS }
 ) => {
-  console.log('actin')
   switch (action.type) {
     case ACTIONS.LOGIN: {
-      console.log('auth login reducer here')
       const { id, firstName, lastName, email } = action.payload
       return {
         ...state,

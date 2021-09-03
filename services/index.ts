@@ -1,9 +1,15 @@
 import ky from 'ky'
+import setEnv from '../utils/set-env'
+
+const {
+  apiKey: APIKey,
+  apiUrl: prefixUrl,
+}: { apiKey: string; apiUrl: string } = setEnv(process.env.NODE_ENV)
 
 export default ky.create({
-  prefixUrl: process.env.NEXT_PUBLIC_API_URL,
+  prefixUrl,
   headers: {
-    APIKey: process.env.NEXT_PUBLIC_API_KEY,
+    APIKey,
   },
   hooks: {
     afterResponse: [
