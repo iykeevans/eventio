@@ -57,5 +57,10 @@
     "stylelint": "10.0.0",
     "stylelint-config-prettier": "^8.0.2",
     "typescript": "^4.4.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run prettier-format && yarn run stylelint && git add ."
+    }
   }
 }
