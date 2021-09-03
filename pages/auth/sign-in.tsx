@@ -1,13 +1,13 @@
-import type { NextPage, NextApiRequest, NextApiResponse } from 'next'
-import { Session } from 'next-iron-session'
+import type { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
 import { Formik } from 'formik'
 import { useRouter } from 'next/router'
-import ky from 'ky'
+
 import { loginSchema } from '../../utils/validateSchema'
 
 import useHasError from '../../custom-hooks/use-has-error'
-import withSession from '../../utils/session'
+import useFetchUser from '../../custom-hooks/use-fetch-user'
+import { useAuth } from '../../context/auth'
 
 import PublicLayout from '../../components/layouts/public-layout'
 import Input from '../../components/input-field'
@@ -15,6 +15,9 @@ import Flex from '../../components/styled/Flex'
 import Text from '../../components/styled/Text'
 import Box from '../../components/styled/Box'
 import Button from '../../components/button'
+import { loginUser } from '../../services/auth-api'
+import { ACTIONS } from '../../enums/constants'
+import PageLoader from '../../components/ui-elements/page-loader'
 
 type FormValues = {
   email: string
@@ -23,6 +26,8 @@ type FormValues = {
 
 const SignIn: NextPage = () => {
   const router = useRouter()
+  const { dispatch } = useAuth()
+  const { loading } = useFetchUser()
 
   useEffect(() => {
     router.prefetch('/')
@@ -36,7 +41,8 @@ const SignIn: NextPage = () => {
     { setSubmitting }: { setSubmitting: (value: boolean) => void }
   ) => {
     try {
-      await ky.post('/api/login', { json: values })
+      const data = await loginUser(values)
+      dispatch({ type: ACTIONS.LOGIN, payload: data })
       router.push('/')
     } catch (err: any) {
       if (err?.message.includes('400')) {
@@ -46,6 +52,8 @@ const SignIn: NextPage = () => {
       setSubmitting(false)
     }
   }
+
+  if (loading) return <PageLoader />
 
   return (
     <PublicLayout>
@@ -170,30 +178,5 @@ const SignIn: NextPage = () => {
     </PublicLayout>
   )
 }
-
-interface IWithSessionArgs {
-  req: NextApiRequest & {
-    session: Session
-  }
-  res: NextApiResponse
-}
-
-export const getServerSideProps = withSession(async function ({
-  req,
-  res,
-}: IWithSessionArgs) {
-  const user = req.session.get('user')
-
-  if (user) {
-    res.setHeader('location', '/')
-    res.statusCode = 302
-    res.end()
-    return { props: {} }
-  }
-
-  return {
-    props: { props: {} },
-  }
-})
 
 export default SignIn

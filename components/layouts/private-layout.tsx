@@ -8,8 +8,9 @@ import Avatar from '../avatar'
 
 import Logo from '../logo.svg'
 import Close from '../icon-close.svg'
-import ky from 'ky'
 import { IUser } from '../../utils/types/users'
+import { useAuth } from '../../context/auth'
+import { ACTIONS } from '../../enums/constants'
 
 function PrivateLayout({
   children,
@@ -19,13 +20,16 @@ function PrivateLayout({
   user?: IUser
 }) {
   const router = useRouter()
+  const { dispatch } = useAuth()
 
   useEffect(() => {
     router.prefetch('/auth/sign-in')
   }, [])
 
   const handleLogout = async () => {
-    await ky.get('/api/logout')
+    dispatch({ type: ACTIONS.LOGOUT })
+    localStorage.removeItem('token')
+    localStorage.removeItem('refresh-token')
     router.push('/auth/sign-in')
   }
 

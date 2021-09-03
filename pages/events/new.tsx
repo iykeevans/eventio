@@ -39,14 +39,14 @@ const NewEvent: NextPage = () => {
     try {
       const { date, time, ...rest } = values
       const dateArray = date.split('/')
-      const timeArray = date.split(':')
+      const timeArray = time.split(':')
       await createEvent({
         ...rest,
         startsAt: `${dateArray[2]}-${dateArray[0]}-${dateArray[1]}T${timeArray[0]}:${timeArray[1]}:00.000Z`,
       })
       router.push('/')
     } catch (err: any) {
-      console.log('----->>', err)
+      console.log(err)
     } finally {
       setSubmitting(false)
     }

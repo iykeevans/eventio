@@ -1,7 +1,9 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import React, { Fragment } from 'react'
+import React from 'react'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
+
+import { AuthProvider } from '../context/auth'
 
 import theme from '../theme'
 
@@ -16,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <Fragment>
+    <AuthProvider>
       <Head>
         <meta
           name="viewport"
@@ -25,10 +27,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </Head>
 
       <GlobalStyle />
+
       <ThemeProvider theme={theme}>
         <Component {...pageProps} />
       </ThemeProvider>
-    </Fragment>
+    </AuthProvider>
   )
 }
 export default MyApp
