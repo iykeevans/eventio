@@ -24,9 +24,9 @@ function AppRefresh() {
       } else {
         router.replace('/auth/sign-in')
       }
-    } catch (err) {
+    } catch (err: any) {
       console.log(err)
-      if (err?.message.includes('400')) {
+      if (err.message.includes('400')) {
         router.replace('/auth/sign-in')
       }
     }
