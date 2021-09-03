@@ -1,35 +1,85 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## This is an Event app visit [Eventio](http://eventio-eight.vercel.app/) to have a feel
+
+Built with Nextjs, Typescript and React
 
 ## Getting Started
 
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
+// Install all needed dependencies
+yarn
+
+yarn run dev
+
+
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Test, Lint and Stylelint
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```bash
+// Test function
+yarn run test
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+// Lint code with eslint
+yarn run lint:js
 
-## Learn More
+// style lint to ensure error free codebase
+yarn run stylelint
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Test and use Components with storybook
 
-## Deploy on Vercel
+```bash
+// Install all needed dependencies
+yarn run storybook
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-"# eventio" 
+READ: [Storybook](https://storybook.js.org/docs/react/get-started/introduction) for more documentation on how to use it.
+
+## Links
+
+API documentation: [Apis](https://strvtestprojectv2.docs.apiary.io/)\
+ App Preview:[Design Previews](https://drive.google.com/drive/folders/1NCcD0u-3UMiP8PXkzL-Embyw3_AcpTBi)\
+ DESIGNS:[Figma](https://www.figma.com/file/1sXplbYZYnKSb6eXaJ44pT/Eventio---Frontend-Test-Project)
+
+### What has been done
+
+#### Login and Authorized State
+
+- [x] Implement UI accordingly to graphic resources
+- [x] Implement form functionality
+- [x] Hook up API
+- [x] After logging in, users should be redirected to a list of all events
+- [x] Implement logout functionality
+
+#### Event List
+
+- [x] Implement UI accordingly to graphic resources
+- [x] Implement toggle view mode functionality
+- [x] Hook up API
+- [x] List and filter All/Past/Future events
+- [x] Implement JOIN/LEAVE event functionality
+
+#### Create Event
+
+- [x] Implement UI accordingly to graphic resources
+- [x] Implement form functionality
+- [x] Hook up API
+
+### 404 Page
+
+- [x] Implement UI accordingly to graphic resources
+
+## Deployment
+
+This App was deployed with [Vercel](https://vercel.com/)
+
+## Lastly
+
+I am always available for feedback.
