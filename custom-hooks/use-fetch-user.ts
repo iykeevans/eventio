@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import jwt_decode from 'jwt-decode'
 
 import { useAuth } from '../context/auth'
-import { refreshToken } from '../services/auth-api'
 import { IUser } from '../utils/types/users'
 import { ACTIONS } from '../enums/constants'
 
@@ -18,7 +17,7 @@ interface Idecoded {
   }
 }
 
-export default function useUser() {
+export default function useFetchUser() {
   const router = useRouter()
   const { dispatch, state } = useAuth()
   const [loading, setLoading] = useState(true)
@@ -27,6 +26,9 @@ export default function useUser() {
     const token = localStorage.getItem('token')
 
     if (state.isLoggedIn) {
+      if (router.pathname.includes('auth')) {
+        router.replace('/')
+      }
       setLoading(false)
       return
     }
@@ -36,20 +38,14 @@ export default function useUser() {
       // if decoded exp time > current time move forward
       if (Number(`${decoded.exp}000`) > Number(Date.now())) {
         dispatch({ type: ACTIONS.LOGIN, payload: decoded.user })
-        router.push('/')
+        router.replace('/')
       }
-      // else refresh the token
+      // else redirect to refresh page
       else {
-        refreshToken()
-          .then((response) => {
-            console.log('res', response)
-            dispatch({ type: ACTIONS.LOGIN, payload: response })
-            router.push('/')
-          })
-          .catch((err) => console.log(err))
+        router.replace('/app-refresh')
       }
     } else {
-      router.push('/auth/sign-in')
+      router.replace('/auth/sign-in')
     }
     setLoading(false)
   }, [])

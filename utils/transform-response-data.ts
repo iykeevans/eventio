@@ -14,10 +14,10 @@ export const transformEventData = (data: IEventResponse[]): IEvent[] => {
     id: item._id || '',
     title: item.title || '',
     description: item.description || '',
-    startsAt: format(new Date(item.startsAt), 'MMM dd yyyy - h mm a') || '',
+    startsAt: format(new Date(item.startsAt), 'MMM dd yyyy - h:mm a') || '',
     capacity: item.capacity || 0,
-    createdAt: format(new Date(item.createdAt), 'MMM dd yyyy - h mm a') || '',
-    updatedAt: format(new Date(item.updatedAt), 'MMM dd yyyy - h mm a') || '',
+    createdAt: format(new Date(item.createdAt), 'MMM dd yyyy - h:mm a') || '',
+    updatedAt: format(new Date(item.updatedAt), 'MMM dd yyyy - h:mm a') || '',
     owner: {
       id: item?.owner.id || '',
       firstName: item.owner.firstName || '',
