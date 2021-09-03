@@ -27,10 +27,10 @@ function PrivateLayout({
   }, [])
 
   const handleLogout = async () => {
-    dispatch({ type: ACTIONS.LOGOUT })
     localStorage.removeItem('token')
     localStorage.removeItem('refresh-token')
     router.push('/auth/sign-in')
+    dispatch({ type: ACTIONS.LOGOUT })
   }
 
   return (
