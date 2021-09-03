@@ -17,6 +17,7 @@ import { removeAttendee, addAttendee } from '../utils/attendance-manager'
 import { useAuth } from '../context/auth'
 import useFetchUser from '../custom-hooks/use-fetch-user'
 import PageLoader from '../components/ui-elements/page-loader'
+import useFilter from '../custom-hooks/use-filter'
 
 const Home = () => {
   const router = useRouter()
@@ -27,6 +28,7 @@ const Home = () => {
   const [events, setEvents] = useState<IEvent[]>([])
   const [eventsView, setEventsView] = useState<string>('list')
   const [filterOption, setFilterOption] = useState<string>('ALL EVENTS')
+  const filteredEvents = useFilter(filterOption, events)
 
   useEffect(() => {
     fetchEvents()
@@ -87,7 +89,7 @@ const Home = () => {
               ml="auto"
               mr="auto"
             >
-              {events.map((event) => (
+              {filteredEvents.map((event) => (
                 <CardItem
                   key={event.id}
                   event={event}
@@ -106,7 +108,7 @@ const Home = () => {
               ml="auto"
               mr="auto"
             >
-              {events.map((event) => (
+              {filteredEvents.map((event) => (
                 <ListItem
                   key={event.id}
                   event={event}
