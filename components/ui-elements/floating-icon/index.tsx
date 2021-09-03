@@ -34,7 +34,7 @@ const StyledFloatingIcon = styled(Flex)`
   border-radius: 100%;
   right: 26px;
   bottom: 26px;
-
+  transition: ${(props) => props.theme.transition};
   &:hover {
     background: ${(props) => lighten(0.09, props.theme.colors['eventio.base'])};
   }

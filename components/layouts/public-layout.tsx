@@ -22,25 +22,6 @@ function PublicLayout({ children }: { children: ReactNode }) {
           pt="7"
         >
           <StyledLogo />
-
-          <Text
-            as="a"
-            display="none"
-            displayMd="block"
-            fontSize="sm"
-            color="eventio.base-light-1"
-          >
-            Don’t have account?{' '}
-            <Text
-              as="span"
-              display="inline"
-              fontWeight="medium"
-              fontSize="sm"
-              color="eventio.base-light"
-            >
-              SIGN UP
-            </Text>
-          </Text>
         </Flex>
       </Header>
 

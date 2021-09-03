@@ -7,6 +7,7 @@ import PrivateLayout from '../components/layouts/private-layout'
 import Options from '../components/events/options'
 import Flex from '../components/styled/Flex'
 import Grid from '../components/styled/Grid'
+import Box from '../components/styled/Box'
 import ListItem from '../components/events/list-item'
 import CardItem from '../components/events/card-item'
 import Spinner from '../components/ui-elements/spinner'
@@ -77,48 +78,61 @@ const Home = () => {
           <Spinner />
         </Flex>
       ) : (
-        <>
-          {eventsView === 'card' && (
-            <Grid
-              gridColsMd="3"
-              gridCols="1"
-              rowGap="4"
-              colGap="4"
-              width="11/12"
-              widthMd="10/12"
-              ml="auto"
-              mr="auto"
-            >
-              {filteredEvents.map((event) => (
-                <CardItem
-                  key={event.id}
-                  event={event}
-                  userId={user.id}
-                  handleUserAction={handleUserAction}
-                />
-              ))}
-            </Grid>
-          )}
+        <Box as="main">
+          <Box
+            role="tab-panel"
+            tabIndex={0}
+            id={`${filterOption}-tab`}
+            aria-labelledby={filterOption}
+          >
+            {eventsView === 'card' && (
+              <Grid
+                tabIndex={0}
+                id={`${eventsView}-tab`}
+                aria-labelledby={eventsView}
+                gridColsMd="3"
+                gridCols="1"
+                rowGap="4"
+                colGap="4"
+                width="11/12"
+                widthMd="10/12"
+                ml="auto"
+                mr="auto"
+              >
+                {filteredEvents.map((event) => (
+                  <CardItem
+                    key={event.id}
+                    event={event}
+                    userId={user.id}
+                    handleUserAction={handleUserAction}
+                  />
+                ))}
+              </Grid>
+            )}
 
-          {eventsView === 'list' && (
-            <Flex
-              direction="column"
-              width="11/12"
-              widthMd="10/12"
-              ml="auto"
-              mr="auto"
-            >
-              {filteredEvents.map((event) => (
-                <ListItem
-                  key={event.id}
-                  event={event}
-                  userId={user.id}
-                  handleUserAction={handleUserAction}
-                />
-              ))}
-            </Flex>
-          )}
-        </>
+            {eventsView === 'list' && (
+              <Flex
+                tabIndex={0}
+                id={`${eventsView}-tab`}
+                aria-labelledby={eventsView}
+                direction="column"
+                width="11/12"
+                widthMd="10/12"
+                ml="auto"
+                mr="auto"
+              >
+                {filteredEvents.map((event) => (
+                  <ListItem
+                    key={event.id}
+                    event={event}
+                    userId={user.id}
+                    handleUserAction={handleUserAction}
+                  />
+                ))}
+              </Flex>
+            )}
+          </Box>
+        </Box>
       )}
     </PrivateLayout>
   )

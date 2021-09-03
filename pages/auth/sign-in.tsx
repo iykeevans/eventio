@@ -42,8 +42,12 @@ const SignIn: NextPage = () => {
   ) => {
     try {
       const data = await loginUser(values)
-      dispatch({ type: ACTIONS.LOGIN, payload: data })
-      router.push('/')
+
+      if (data) {
+        dispatch({ type: ACTIONS.LOGIN, payload: data })
+        router.push('/')
+        return
+      }
     } catch (err: any) {
       if (err?.message.includes('400')) {
         setServerError(true)
@@ -57,7 +61,12 @@ const SignIn: NextPage = () => {
 
   return (
     <PublicLayout>
-      <Flex alignItems="center" justifyContent="center" height="screen">
+      <Flex
+        as="main"
+        alignItems="center"
+        justifyContent="center"
+        height="screen"
+      >
         <Box widthMd="6/12" width="10/12">
           <Text
             as="h1"

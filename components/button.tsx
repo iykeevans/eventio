@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
+import { darken } from 'polished'
 
 import Base from './styled/Base'
 import Spinner from './ui-elements/spinner'
@@ -48,6 +49,12 @@ const StyledButton = styled(Base)<{ variant: string; size: string }>`
   border: 0;
   font-weight: 600;
   letter-spacing: 1px;
+
+  transition: ${(props) => props.theme.transition};
+
+  &:hover {
+    background: ${(props) => darken(0.09, props.theme.colors[props.variant])};
+  }
 `
 
 export default Button

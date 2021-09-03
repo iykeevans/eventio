@@ -12,7 +12,12 @@ function Custom404() {
 
   return (
     <PublicLayout>
-      <Flex alignItems="center" justifyContent="center" height="screen">
+      <Flex
+        as="main"
+        alignItems="center"
+        justifyContent="center"
+        height="screen"
+      >
         <Box widthMd="7/12" width="10/12">
           <Text
             as="h1"

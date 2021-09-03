@@ -11,6 +11,7 @@ import { IEvent } from './types/events'
  */
 
 const filterDate = (filterOption: string, events: IEvent[] = []) => {
+  if (!events || !events.length) return []
   return events.filter((event) => {
     const date = new Date(event.startsAt)
 

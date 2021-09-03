@@ -7,6 +7,8 @@ import Box from '../styled/Box'
 
 import GridView from './grid-view.svg'
 import ListView from './list-view.svg'
+import ArrowTwo from '../arrow-two.svg'
+import DropDown from '../ui-elements/drop-down'
 
 interface IProps {
   filterOption: string
@@ -30,13 +32,54 @@ function Options(props: IProps) {
       mb="8"
     >
       <Box displayMd="none">
-        <Text fontSize="sm">SHOW: ALL EVENTS</Text>
+        <DropDown options={filterOptions} setOption={setFilterOption}>
+          <Flex alignItems="center">
+            <Text
+              as="span"
+              fontSize="xs"
+              fontWeight="semibold"
+              letterSpacing="1px"
+              color="eventio.base-light-4"
+            >
+              SHOW:
+            </Text>{' '}
+            <Text
+              as="span"
+              fontSize="xs"
+              fontWeight="semibold"
+              letterSpacing="1px"
+              ml="2"
+              mr="3"
+            >
+              {filterOption}
+            </Text>
+            <ArrowTwo />
+          </Flex>
+        </DropDown>
       </Box>
 
       <Box displayMd="flex" display="none">
-        <Flex alignItems="center">
+        <Flex
+          alignItems="center"
+          role="tab-list"
+          aria-label="Filter Options"
+          as="ul"
+          pt="0"
+          pl="0"
+          pr="0"
+          pb="0"
+          mb="0"
+          mt="0"
+        >
           {filterOptions.map((option, index) => (
             <FilterOption
+              as="li"
+              role="tab"
+              aria-selected={filterOption === option}
+              aria-controls={`${option}-tab`}
+              id={option}
+              tabIndex={filterOption === filterOptions[0] ? 0 : -1}
+              listStyle="none"
               mr="10"
               fontSize="xs"
               fontWeight="semibold"
@@ -56,13 +99,22 @@ function Options(props: IProps) {
         </Flex>
       </Box>
 
-      <Box>
+      <Box role="tab-list" aria-label="Event View">
         <StyledGridView
-          mr="5"
+          role="tab"
+          aria-selected={eventsView === 'card'}
+          aria-controls="card-tab"
+          id="card"
+          tabIndex="0"
           $active={eventsView === 'card'}
           onClick={() => setEventsView('card')}
         />
         <StyledListView
+          role="tab"
+          aria-selected={eventsView === 'card'}
+          aria-controls="list-tab"
+          id="list"
+          tabIndex="-1"
           $active={eventsView === 'list'}
           onClick={() => setEventsView('list')}
         />

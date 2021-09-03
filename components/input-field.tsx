@@ -39,7 +39,7 @@ function Input({
       />
       <span className="highlight"></span>
       <InputBar className="bar" hasError={hasError}></InputBar>
-      <Label>{label}</Label>
+      <Label htmlFor={id}>{label}</Label>
     </InputGroup>
   )
 }

@@ -64,12 +64,15 @@ const buttonSizes = {
   lg: { height: '57px', width: '240px' },
 }
 
+const transition = 'all .1s ease-in-out'
+
 export interface ITheme {
   colors: IColors
   viewports: IViewports
   boxShadows: IBoxShadows
   radiuses: IRadiuses
   buttonSizes: IButtonSizes
+  transition: string
 }
 
 const theme: ITheme = {
@@ -78,6 +81,7 @@ const theme: ITheme = {
   boxShadows,
   radiuses,
   buttonSizes,
+  transition,
 }
 
 export default theme

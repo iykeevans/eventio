@@ -16,7 +16,7 @@ export const newEventSchema = yup.object({
     .required('Date has to be filled up')
     .matches(
       /^\d{2}([/])\d{2}\1\d{4}$/,
-      'Invalid date format, e.g MM/DD/YYYY (10/10/2021)'
+      'Invalid date format, e.g DD/MM/YYYY (10/10/2021)'
     )
     .test(
       'customValidateDate',
