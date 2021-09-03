@@ -1,5 +1,4 @@
 import apiClient from '.'
-import cookies from 'js-cookie'
 
 import { transformEventData } from '../utils/transform-response-data'
 import { IEvent } from '../utils/types/events'
@@ -14,9 +13,11 @@ export const fetchEvents = async (): Promise<IEvent[]> => {
   }
 }
 
-const authorization = cookies.get('authorization')
+const token = localStorage.getItem('token') || ''
 
-const extendedApiClient = apiClient.extend({ headers: { authorization } })
+const extendedApiClient = apiClient.extend({
+  headers: { authorization: token },
+})
 
 export const leaveEvent = async (eventId: string) => {
   try {

@@ -65,15 +65,21 @@ function ListItem(props: IListItemProps) {
           <Text
             color="eventio.base-light-3"
             fontSize="sm"
-            widthMd="full"
+            widthMd="9/12"
             mb="2"
             mbMd="0"
             mrMd="4"
+            flexNone
           >
             {event.startsAt}
           </Text>
 
-          <Text color="eventio.base-light-1" fontSize="sm" widthMd="4/12">
+          <Text
+            color="eventio.base-light-1"
+            fontSize="sm"
+            widthMd="10/12"
+            flexNone
+          >
             {`${event.attendees.length} of ${event.capacity}`}
           </Text>
         </Flex>

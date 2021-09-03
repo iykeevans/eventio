@@ -1,5 +1,4 @@
 export enum ACTIONS {
   LOGIN,
   LOGOUT,
-  UPDATE_IS_LOGGED_IN,
 }

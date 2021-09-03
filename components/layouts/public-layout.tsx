@@ -23,7 +23,7 @@ function PublicLayout({ children }: { children: ReactNode }) {
         >
           <StyledLogo />
 
-          {/* <Text
+          <Text
             as="a"
             display="none"
             displayMd="block"
@@ -40,7 +40,7 @@ function PublicLayout({ children }: { children: ReactNode }) {
             >
               SIGN UP
             </Text>
-          </Text> */}
+          </Text>
         </Flex>
       </Header>
 

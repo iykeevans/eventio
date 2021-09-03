@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { NextApiRequest, NextApiResponse } from 'next'
 import { useRouter } from 'next/router'
-import { Session } from 'next-iron-session'
 
-import withSession from '../utils/session'
 import { fetchEvents, leaveEvent, joinEvent } from '../services/events-api'
 
 import PrivateLayout from '../components/layouts/private-layout'
@@ -15,12 +12,16 @@ import CardItem from '../components/events/card-item'
 import Spinner from '../components/ui-elements/spinner'
 import FloatingIcon from '../components/ui-elements/floating-icon'
 import { IEvent } from '../utils/types/events'
-import { IUser } from '../utils/types/users'
 
 import { removeAttendee, addAttendee } from '../utils/attendance-manager'
+import { useAuth } from '../context/auth'
+import useFetchUser from '../custom-hooks/use-fetch-user'
+import PageLoader from '../components/ui-elements/page-loader'
 
-const Home = ({ user }: { user: IUser }) => {
+const Home = () => {
   const router = useRouter()
+  const { state: user } = useAuth()
+  const { loading: appLoading } = useFetchUser()
 
   const [loading, setLoading] = useState<boolean>(true)
   const [events, setEvents] = useState<IEvent[]>([])
@@ -53,6 +54,7 @@ const Home = ({ user }: { user: IUser }) => {
       console.log(err)
     }
   }
+  if (appLoading) return <PageLoader />
 
   return (
     <PrivateLayout user={user}>
@@ -119,28 +121,5 @@ const Home = ({ user }: { user: IUser }) => {
     </PrivateLayout>
   )
 }
-
-interface IWithSessionArgs {
-  req: NextApiRequest & { session: Session }
-  res: NextApiResponse
-}
-
-export const getServerSideProps = withSession(async function ({
-  req,
-  res,
-}: IWithSessionArgs) {
-  const user = req.session.get('user')
-
-  if (!user) {
-    res.setHeader('location', '/auth/sign-in')
-    res.statusCode = 302
-    res.end()
-    return { props: {} }
-  }
-
-  return {
-    props: { user: req.session.get('user') || null },
-  }
-})
 
 export default Home
