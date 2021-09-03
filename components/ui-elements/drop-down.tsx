@@ -82,7 +82,7 @@ const StyledText = styled(Text)`
   transition: ${(props) => props.theme.transition};
 
   &:hover {
-    background: ${(props) => props.theme.colors['eventio.base']};
+    color: ${(props) => props.theme.colors['eventio.base']};
   }
 `
 
