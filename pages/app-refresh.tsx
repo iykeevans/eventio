@@ -5,8 +5,24 @@ import Box from '../components/styled/Box'
 import Flex from '../components/styled/Flex'
 import Text from '../components/styled/Text'
 import Button from '../components/button'
+import { refreshToken } from '../services/auth-api'
+import { useAuth } from '../context/auth'
+import { ACTIONS } from '../enums/constants'
+import router from 'next/router'
 
 function AppRefresh() {
+  const { dispatch } = useAuth()
+
+  const handleRefresh = async () => {
+    try {
+      const data = await refreshToken()
+      dispatch({ type: ACTIONS.LOGIN, payload: data })
+      router.replace('/')
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <PublicLayout>
       <Flex alignItems="center" justifyContent="center" height="screen">
@@ -31,21 +47,29 @@ function AppRefresh() {
             align="center"
             alignMd="left"
             mt="0"
-            mb="10"
+            mb="0"
             color="eventio.base-light-1"
           >
             Seems like Darth Vader just hits our website and drops it down.
             Please press the refresh button and everything should be fine again.
           </Text>
 
-          <Button
-            label="SIGN IN"
-            variant="eventio.base"
-            rounded="eventio.rounded-sm"
-            size="lg"
+          <Flex
+            justifyContent="center"
+            justifyContentMd="start"
+            mt="10"
+            mtMd="14"
           >
-            REFRESH
-          </Button>
+            <Button
+              label="SIGN IN"
+              variant="eventio.base"
+              rounded="eventio.rounded-sm"
+              size="lg"
+              onClick={handleRefresh}
+            >
+              REFRESH
+            </Button>
+          </Flex>
         </Box>
       </Flex>
     </PublicLayout>

@@ -34,22 +34,29 @@ function Custom404() {
             align="center"
             alignMd="left"
             mt="0"
-            mb="10"
+            mb="0"
             color="eventio.base-light-1"
           >
             Seems like Darth Vader just hits our website and drops it down.
             Please press the refresh button and everything should be fine again.
           </Text>
 
-          <Button
-            label="SIGN IN"
-            variant="eventio.base"
-            rounded="eventio.rounded-sm"
-            size="lg"
-            onClick={() => router.back()}
+          <Flex
+            justifyContent="center"
+            justifyContentMd="start"
+            mt="10"
+            mtMd="14"
           >
-            REFRESH
-          </Button>
+            <Button
+              label="SIGN IN"
+              variant="eventio.base"
+              rounded="eventio.rounded-sm"
+              size="lg"
+              onClick={() => router.back()}
+            >
+              REFRESH
+            </Button>
+          </Flex>
         </Box>
       </Flex>
     </PublicLayout>
