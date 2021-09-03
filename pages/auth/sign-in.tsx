@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
 import { Formik } from 'formik'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 import { loginSchema } from '../../utils/validateSchema'
 
@@ -61,6 +62,10 @@ const SignIn: NextPage = () => {
 
   return (
     <PublicLayout>
+      <Head>
+        <title>Eventio - Login</title>
+      </Head>
+
       <Flex
         as="main"
         alignItems="center"

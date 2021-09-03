@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 import { fetchEvents, leaveEvent, joinEvent } from '../services/events-api'
 
@@ -29,7 +30,6 @@ const Home = () => {
   const [events, setEvents] = useState<IEvent[]>([])
   const [eventsView, setEventsView] = useState<string>('list')
   const [filterOption, setFilterOption] = useState<string>('ALL EVENTS')
-  const filteredEvents = useFilter(filterOption, events)
 
   useEffect(() => {
     fetchEvents()
@@ -39,6 +39,8 @@ const Home = () => {
       .catch((error) => console.log(error))
       .finally(() => setLoading(false))
   }, [])
+
+  const filteredEvents = useFilter(filterOption, events)
 
   const handleUserAction = async (actionType: string, eventId: string) => {
     try {
@@ -61,6 +63,10 @@ const Home = () => {
 
   return (
     <PrivateLayout user={user}>
+      <Head>
+        <title>Eventio - All Events</title>
+      </Head>
+
       <FloatingIcon
         bgColor="eventio.base"
         onClick={() => router.push('/events/new')}
@@ -79,12 +85,7 @@ const Home = () => {
         </Flex>
       ) : (
         <Box as="main">
-          <Box
-            role="tab-panel"
-            tabIndex={0}
-            id={`${filterOption}-tab`}
-            aria-labelledby={filterOption}
-          >
+          <Box>
             {eventsView === 'card' && (
               <Grid
                 tabIndex={0}

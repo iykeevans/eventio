@@ -1,4 +1,6 @@
 import React from 'react'
+import { format } from 'date-fns'
+
 import { IEvent } from '../../utils/types/events'
 import getUserPossibleAction from '../../utils/get-user-possible-action'
 
@@ -71,7 +73,7 @@ function ListItem(props: IListItemProps) {
             mrMd="4"
             flexNone
           >
-            {event.startsAt}
+            {format(new Date(event.startsAt), 'MMM dd yyyy - h:mm a')}
           </Text>
 
           <Text

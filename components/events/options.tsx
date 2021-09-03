@@ -61,8 +61,6 @@ function Options(props: IProps) {
       <Box displayMd="flex" display="none">
         <Flex
           alignItems="center"
-          role="tab-list"
-          aria-label="Filter Options"
           as="ul"
           pt="0"
           pl="0"
@@ -74,11 +72,6 @@ function Options(props: IProps) {
           {filterOptions.map((option, index) => (
             <FilterOption
               as="li"
-              role="tab"
-              aria-selected={filterOption === option}
-              aria-controls={`${option}-tab`}
-              id={option}
-              tabIndex={filterOption === filterOptions[0] ? 0 : -1}
               listStyle="none"
               mr="10"
               fontSize="xs"
@@ -99,7 +92,7 @@ function Options(props: IProps) {
         </Flex>
       </Box>
 
-      <Box role="tab-list" aria-label="Event View">
+      <Box role="tablist" aria-label="Event View">
         <StyledGridView
           role="tab"
           aria-selected={eventsView === 'card'}

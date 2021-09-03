@@ -6,7 +6,6 @@
     "@strv/eslint-config-typescript",
     "prettier"
   ],
-  "plugins": ["react-hooks"],
 
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -24,9 +23,7 @@
     "react/no-did-mount-set-state": 1,
     "react/prop-types": 0,
     "import/no-default-export": 1,
-    "react-hooks/rules-of-hooks": "error",
     "import/extensions": ["error", "never", { "svg": "always" }],
-    "react-hooks/exhaustive-deps": "warn",
     "no-underscore-dangle": [
       "error",
       {

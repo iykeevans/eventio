@@ -2,6 +2,8 @@ import type { NextPage } from 'next'
 import React from 'react'
 import { Formik } from 'formik'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
+
 import { createEvent } from '../../services/events-api'
 
 import PrivateLayout from '../../components/layouts/private-layout'
@@ -54,6 +56,10 @@ const NewEvent: NextPage = () => {
 
   return (
     <PrivateLayout>
+      <Head>
+        <title>Eventio - New Event</title>
+      </Head>
+
       <Flex as="main" justifyContent="center" ptMd="20" pb="16">
         <Formik
           initialValues={initialValues}

@@ -1,4 +1,5 @@
 import React from 'react'
+import Head from 'next/head'
 
 import PublicLayout from '../components/layouts/public-layout'
 import Box from '../components/styled/Box'
@@ -16,15 +17,27 @@ function AppRefresh() {
   const handleRefresh = async () => {
     try {
       const data = await refreshToken()
-      dispatch({ type: ACTIONS.LOGIN, payload: data })
-      router.replace('/')
+      console.log(data)
+      if (data) {
+        dispatch({ type: ACTIONS.LOGIN, payload: data })
+        router.replace('/')
+      } else {
+        router.replace('/auth/sign-in')
+      }
     } catch (err) {
       console.log(err)
+      if (err?.message.includes('400')) {
+        router.replace('/auth/sign-in')
+      }
     }
   }
 
   return (
     <PublicLayout>
+      <Head>
+        <title>Eventio - App Refresh</title>
+      </Head>
+
       <Flex
         as="main"
         alignItems="center"

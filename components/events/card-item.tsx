@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { format } from 'date-fns'
 
 import getUserPossibleAction from '../../utils/get-user-possible-action'
 import { IEvent } from '../../utils/types/events'
@@ -34,7 +35,7 @@ function CardItem(props: IEventViewProps) {
       pbMd="8"
     >
       <Text color="eventio.base-light-3" fontSize="sm" mb="6" mbMd="5">
-        {event.startsAt}
+        {format(new Date(event.startsAt), 'MMM dd yyyy - h:mm a')}
       </Text>
 
       <Text color="eventio.base" fontSize="xl">

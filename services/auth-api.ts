@@ -31,6 +31,6 @@ export const refreshToken = async () => {
 
     return transformUserData(await response.json())
   } catch (error: any) {
-    return error
+    throw new Error(error)
   }
 }
