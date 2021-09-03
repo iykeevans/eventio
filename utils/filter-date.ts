@@ -7,9 +7,10 @@ import { IEvent } from './types/events'
  *
  * @param {String} filterOption
  * @param {Array} events
+ * @returns {Boolean}
  */
 
-const filterDate = (filterOption: string, events: IEvent[]) => {
+const filterDate = (filterOption: string, events: IEvent[] = []) => {
   return events.filter((event) => {
     const date = new Date(event.startsAt)
 
