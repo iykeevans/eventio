@@ -30,7 +30,7 @@ function Input({
   return (
     <InputGroup {...rest}>
       <StyledInput
-        id={id}
+        id={name}
         type={type}
         name={name}
         value={value}
@@ -39,7 +39,7 @@ function Input({
       />
       <span className="highlight"></span>
       <InputBar className="bar" hasError={hasError}></InputBar>
-      <Label htmlFor={id}>{label}</Label>
+      <Label htmlFor={name}>{label}</Label>
     </InputGroup>
   )
 }

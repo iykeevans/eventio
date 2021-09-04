@@ -13,7 +13,7 @@ export const loginUser = async (payload: {}): Promise<IUser> => {
 
     return transformUserData(await response.json())
   } catch (error: any) {
-    return error
+    throw new Error(error)
   }
 }
 
