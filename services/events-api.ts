@@ -9,7 +9,7 @@ export const fetchEvents = async (): Promise<IEvent[]> => {
     const data = await response.json()
     return transformEventData(data)
   } catch (error: any) {
-    return error
+    throw new Error(error)
   }
 }
 
@@ -22,8 +22,8 @@ export const leaveEvent = async (eventId: string) => {
       { headers: { authorization } }
     )
     return await response.json()
-  } catch (error) {
-    return error
+  } catch (error: any) {
+    throw new Error(error)
   }
 }
 
@@ -36,8 +36,8 @@ export const joinEvent = async (eventId: string) => {
       { headers: { authorization } }
     )
     return await response.json()
-  } catch (error) {
-    return error
+  } catch (error: any) {
+    throw new Error(error)
   }
 }
 
@@ -57,7 +57,7 @@ export const createEvent = async (event: newEvent) => {
       headers: { authorization },
     })
     return await response.json()
-  } catch (error) {
-    return error
+  } catch (error: any) {
+    throw new Error(error)
   }
 }

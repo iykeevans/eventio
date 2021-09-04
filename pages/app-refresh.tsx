@@ -25,7 +25,6 @@ function AppRefresh() {
         router.replace('/auth/sign-in')
       }
     } catch (err: any) {
-      console.log(err)
       if (err.message.includes('400')) {
         router.replace('/auth/sign-in')
       }
