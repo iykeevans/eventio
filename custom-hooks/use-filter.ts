@@ -7,8 +7,6 @@ function useFilter(filterOption: string, events: IEvent[] = []) {
 
   useEffect(() => {
     setState([...filterDate(filterOption, events)])
-    // console.log('-------> events', events)
-    // console.log('-------> state', state)
   }, [filterOption, events])
 
   return state
